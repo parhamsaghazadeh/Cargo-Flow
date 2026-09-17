@@ -8,7 +8,7 @@ spring:
     url: jdbc:mysql://localhost:3306/cargoflow_user_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: ${DB_PASSWORD:}
+    password: parham86sa
   jpa:
     hibernate:
       ddl-auto: update
