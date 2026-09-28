@@ -3,6 +3,7 @@ package com.cargoflow.userservice.service;
 import com.cargoflow.userservice.dto.CustomerRequest;
 import com.cargoflow.userservice.dto.CustomerResponse;
 import com.cargoflow.userservice.entity.Customer;
+import com.cargoflow.userservice.exception.ResourceNotFoundException;
 import com.cargoflow.userservice.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponse getById(Long id) {
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
         return mapToResponse(customer);
     }
 
@@ -46,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public void delete(Long id) {
         if (!customerRepository.existsById(id)) {
-            throw new RuntimeException("Customer not found with id: " + id);
+            throw new ResourceNotFoundException("Customer not found with id: " + id);
         }
         customerRepository.deleteById(id);
     }
