@@ -4,6 +4,8 @@ import com.cargoflow.userservice.dto.DriverRequest;
 import com.cargoflow.userservice.dto.DriverResponse;
 import com.cargoflow.userservice.entity.Driver;
 import com.cargoflow.userservice.enums.DriverStatus;
+import com.cargoflow.userservice.exception.BusinessRuleViolationException;
+import com.cargoflow.userservice.exception.ResourceNotFoundException;
 import com.cargoflow.userservice.repository.DriverRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public DriverResponse create(DriverRequest request) {
         if (driverRepository.existsByLicenseNumber(request.getLicenseNumber())) {
-            throw new RuntimeException("Driver with license number already exists: " + request.getLicenseNumber());
+            throw new BusinessRuleViolationException("Driver with license number already exists: " + request.getLicenseNumber());
         }
         Driver driver = new Driver(request.getName(), request.getLicenseNumber());
         Driver saved = driverRepository.save(driver);
@@ -35,7 +37,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public DriverResponse getById(Long id) {
         Driver driver = driverRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Driver not found with id: " + id));
         return mapToResponse(driver);
     }
 
@@ -50,7 +52,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public DriverResponse updateStatus(Long id, DriverStatus status) {
         Driver driver = driverRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Driver not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Driver not found with id: " + id));
         driver.setStatus(status);
         Driver saved = driverRepository.save(driver);
         return mapToResponse(saved);
@@ -60,7 +62,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public void delete(Long id) {
         if (!driverRepository.existsById(id)) {
-            throw new RuntimeException("Driver not found with id: " + id);
+            throw new ResourceNotFoundException("Driver not found with id: " + id);
         }
         driverRepository.deleteById(id);
     }
