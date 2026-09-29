@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerResponse create(CustomerRequest request) {
-        Customer customer = new Customer(request.getName(), request.getEmail(), request.getPhone());
+        Customer customer = new Customer(request.getName(), request.getLastName(), request.getAge(), request.getEmail(), request.getPhone());
         Customer saved = customerRepository.save(customer);
         return mapToResponse(saved);
     }
@@ -56,6 +56,8 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerResponse(
                 customer.getId(),
                 customer.getName(),
+                customer.getLastName(),
+                customer.getAge(),
                 customer.getEmail(),
                 customer.getPhone(),
                 customer.getCreatedAt()
