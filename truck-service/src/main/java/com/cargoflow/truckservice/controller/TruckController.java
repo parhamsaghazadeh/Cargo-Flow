@@ -28,7 +28,7 @@ public class TruckController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TruckResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<TruckResponse> getById(@PathVariable("id") Long id) {
         TruckResponse response = truckService.getById(id);
         return ResponseEntity.ok(response);
     }
@@ -40,19 +40,19 @@ public class TruckController {
     }
 
     @GetMapping("/available")
-    public ResponseEntity<List<TruckResponse>> getAvailableWithCapacity(@RequestParam Integer capacity) {
+    public ResponseEntity<List<TruckResponse>> getAvailableWithCapacity(@RequestParam("capacity") Integer capacity) {
         List<TruckResponse> responses = truckService.findAvailableWithCapacity(capacity);
         return ResponseEntity.ok(responses);
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<TruckResponse> updateStatus(@PathVariable Long id, @RequestParam TruckStatus status) {
+    public ResponseEntity<TruckResponse> updateStatus(@PathVariable("id") Long id, @RequestParam("status") TruckStatus status) {
         TruckResponse response = truckService.updateStatus(id, status);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         truckService.delete(id);
         return ResponseEntity.noContent().build();
     }
