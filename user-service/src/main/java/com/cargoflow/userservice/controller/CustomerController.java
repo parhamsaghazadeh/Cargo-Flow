@@ -27,7 +27,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<CustomerResponse> getById(@PathVariable("id") Long id) {
         CustomerResponse response = customerService.getById(id);
         return ResponseEntity.ok(response);
     }
@@ -39,7 +39,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         customerService.delete(id);
         return ResponseEntity.noContent().build();
     }
