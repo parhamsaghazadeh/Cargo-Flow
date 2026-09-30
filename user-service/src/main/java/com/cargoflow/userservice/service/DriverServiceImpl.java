@@ -2,10 +2,12 @@ package com.cargoflow.userservice.service;
 
 import com.cargoflow.userservice.dto.DriverRequest;
 import com.cargoflow.userservice.dto.DriverResponse;
+import com.cargoflow.userservice.entity.Customer;
 import com.cargoflow.userservice.entity.Driver;
 import com.cargoflow.userservice.enums.DriverStatus;
 import com.cargoflow.userservice.exception.BusinessRuleViolationException;
 import com.cargoflow.userservice.exception.ResourceNotFoundException;
+import com.cargoflow.userservice.repository.CustomerRepository;
 import com.cargoflow.userservice.repository.DriverRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
 public class DriverServiceImpl implements DriverService {
 
     private final DriverRepository driverRepository;
+    private final CustomerRepository customerRepository;
 
-    public DriverServiceImpl(DriverRepository driverRepository) {
+    public DriverServiceImpl(DriverRepository driverRepository, CustomerRepository customerRepository) {
         this.driverRepository = driverRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -29,7 +33,9 @@ public class DriverServiceImpl implements DriverService {
         if (driverRepository.existsByLicenseNumber(request.getLicenseNumber())) {
             throw new BusinessRuleViolationException("Driver with license number already exists: " + request.getLicenseNumber());
         }
-        Driver driver = new Driver(request.getName(), request.getLicenseNumber());
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + request.getCustomerId()));
+        Driver driver = new Driver(customer, request.getLicenseNumber());
         Driver saved = driverRepository.save(driver);
         return mapToResponse(saved);
     }
@@ -68,9 +74,11 @@ public class DriverServiceImpl implements DriverService {
     }
 
     private DriverResponse mapToResponse(Driver driver) {
+        Customer customer = driver.getCustomer();
         return new DriverResponse(
                 driver.getId(),
-                driver.getName(),
+                customer.getId(),
+                customer.getName(),
                 driver.getLicenseNumber(),
                 driver.getStatus(),
                 driver.getCreatedAt()

@@ -28,7 +28,7 @@ public class DriverController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DriverResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<DriverResponse> getById(@PathVariable("id") Long id) {
         DriverResponse response = driverService.getById(id);
         return ResponseEntity.ok(response);
     }
@@ -40,13 +40,13 @@ public class DriverController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<DriverResponse> updateStatus(@PathVariable Long id, @RequestParam DriverStatus status) {
+    public ResponseEntity<DriverResponse> updateStatus(@PathVariable("id") Long id, @RequestParam("status") DriverStatus status) {
         DriverResponse response = driverService.updateStatus(id, status);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         driverService.delete(id);
         return ResponseEntity.noContent().build();
     }

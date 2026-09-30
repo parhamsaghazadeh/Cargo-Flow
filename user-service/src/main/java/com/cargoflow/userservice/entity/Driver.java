@@ -14,9 +14,9 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
     @NotBlank
     @Column(nullable = false, unique = true)
@@ -33,16 +33,16 @@ public class Driver {
 
     public Driver() {}
 
-    public Driver(String name, String licenseNumber) {
-        this.name = name;
+    public Driver(Customer customer, String licenseNumber) {
+        this.customer = customer;
         this.licenseNumber = licenseNumber;
     }
 
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
     public String getLicenseNumber() { return licenseNumber; }
     public void setLicenseNumber(String licenseNumber) { this.licenseNumber = licenseNumber; }
     public DriverStatus getStatus() { return status; }
