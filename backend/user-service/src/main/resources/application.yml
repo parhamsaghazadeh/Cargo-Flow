@@ -20,6 +20,12 @@ spring:
   sql:
     init:
       mode: never
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/cargo-flow
+          jwk-set-uri: http://localhost:8080/realms/cargo-flow/protocol/openid-connect/certs
 
 logging:
   level:
