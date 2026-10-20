@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+@source "./app/**/*.html";
+
+@theme {
+  --color-glass: rgba(255, 255, 255, 0.08);
+  --color-glass-strong: rgba(255, 255, 255, 0.14);
+  --color-glass-border: rgba(255, 255, 255, 0.18);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Vazirmatn", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(to bottom right, #c3d1dc, #e2dedd, #d6c5cc);
+  background-attachment: fixed;
+  color: #111827;
+  direction: rtl;
+}
