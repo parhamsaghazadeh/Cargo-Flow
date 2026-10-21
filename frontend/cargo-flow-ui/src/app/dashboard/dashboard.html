@@ -1,0 +1,316 @@
+<section class="space-y-8">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-semibold text-[#111827]">تراک مارکت</h1>
+      <p class="mt-1 text-sm text-[#6b7280]">سیستم هوشمند ترابری</p>
+    </div>
+    <span
+      class="inline-flex items-center gap-2 rounded-full bg-white/60 px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm backdrop-blur-xl"
+    >
+      <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+      زنده · همین حالا به‌روزرسانی شد
+    </span>
+  </div>
+
+  <article
+    class="overflow-hidden rounded-3xl border border-white/60 bg-white/45 shadow-xl shadow-black/5 backdrop-blur-xl"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="relative flex flex-col items-center justify-center overflow-hidden p-6">
+        <div
+          class="relative h-64 w-full overflow-hidden rounded-2xl shadow-lg"
+        >
+          @for (truck of trucks; track truck.name; let i = $index) {
+            <img
+              [src]="truck.src"
+              [alt]="truck.name"
+              class="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
+              [class.opacity-100]="activeSlide() === i"
+              [class.opacity-0]="activeSlide() !== i"
+            />
+          }
+          <div
+            class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 pb-3 pt-10"
+          >
+            <p class="text-sm font-semibold text-white">{{ trucks[activeSlide()].name }}</p>
+            <p class="text-xs text-white/80">{{ trucks[activeSlide()].tagline }}</p>
+          </div>
+        </div>
+
+        <div class="z-10 mt-4 flex w-full justify-center gap-2">
+          @for (truck of trucks; track truck.name; let i = $index) {
+            <button
+              type="button"
+              (click)="activeSlide.set(i)"
+              class="h-2.5 rounded-full transition-all"
+              [class]="activeSlide() === i ? 'w-6 bg-[#111827]' : 'w-2.5 bg-[#111827]/30'"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            ></button>
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-center gap-3 border-t border-white/60 p-8 lg:border-r lg:border-t-0">
+        <span
+          class="inline-flex w-max items-center gap-1.5 rounded-full bg-sky-500/10 px-2.5 py-1 text-xs font-medium text-sky-700"
+        >
+          نمایشگاه ناوگان
+        </span>
+        <h2 class="text-xl font-semibold text-[#111827]">کامیون‌های مدرن، یک ناوگان متصل</h2>
+        <p class="text-sm leading-relaxed text-[#6b7280]">
+          تمامی وسایل نقلیه ناوگان کارگو-فلو به‌صورت بلادرنگ پایش می‌شوند. از پرچم‌داران مسیرهای
+          طولانی تا حامل‌های سردخانه‌ای، کامیون‌های ما برای حمل ایمن و به‌موقع بار ساخته شده‌اند.
+        </p>
+        <ul class="mt-2 space-y-2.5 text-sm text-[#111827]">
+          <li class="flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+            ۹۸٪ میانگین تحویل به‌موقع
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+            ۳۴۲ وسیله نقلیه فعال در جاده
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+            پایش GPS و سردخانه در تمام مسیرها
+          </li>
+        </ul>
+        <div class="mt-5 flex flex-col gap-3">
+          <button
+            type="button"
+            class="cursor-pointer rounded-full bg-[#111827] px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-[#1e293b] active:scale-95"
+          >
+            برای تجارت اینجا کلیک کن
+          </button>
+          <button
+            type="button"
+            class="cursor-pointer rounded-full bg-white/40 px-5 py-2.5 text-sm font-medium text-[#111827] transition-all duration-300 hover:bg-white/70"
+          >
+            درباره ما
+          </button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <article
+      class="rounded-3xl border border-white/60 bg-white/45 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+    >
+      <header class="flex items-center justify-between">
+        <h2 class="text-sm font-medium text-[#6b7280]">فعالیت روزانه کاربران</h2>
+        <span
+          class="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-700"
+        >
+          +12.4%
+        </span>
+      </header>
+      <p class="mt-3 text-3xl font-bold text-[#111827]">1,284</p>
+      <p class="text-xs text-[#6b7280]">کاربر فعال امروز</p>
+
+      <div class="mt-5 space-y-4">
+        @for (item of activity; track item.label) {
+          <div>
+            <div class="mb-1.5 flex items-center justify-between text-xs">
+              <span class="text-[#6b7280]">{{ item.label }}</span>
+              <span class="font-medium text-[#111827]">{{ item.value }}</span>
+            </div>
+            <div class="h-2 w-full overflow-hidden rounded-full bg-white/70">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-sky-500 to-emerald-400"
+                [style.width.%]="item.pct"
+              ></div>
+            </div>
+          </div>
+        }
+      </div>
+    </article>
+
+    <article
+      class="rounded-3xl border border-white/60 bg-white/45 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+    >
+      <header class="flex items-center justify-between">
+        <h2 class="text-sm font-medium text-[#6b7280]">تعداد سفارشات روزانه</h2>
+        <span
+          class="inline-flex items-center gap-1 rounded-full bg-sky-500/15 px-2 py-0.5 text-xs font-medium text-sky-700"
+        >
+          +8.1%
+        </span>
+      </header>
+      <p class="mt-3 text-3xl font-bold text-[#111827]">189</p>
+      <p class="text-xs text-[#6b7280]">سفارش ثبت‌شده امروز</p>
+
+      <div class="mt-5 space-y-4">
+        @for (order of orders; track order.label) {
+          <div>
+            <div class="mb-1.5 flex items-center justify-between text-xs">
+              <span class="text-[#6b7280]">{{ order.label }}</span>
+              <span class="font-medium text-[#111827]">{{ order.value }}</span>
+            </div>
+            <div class="h-2 w-full overflow-hidden rounded-full bg-white/70">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-sky-500 to-indigo-400"
+                [style.width.%]="order.pct"
+              ></div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <ul class="mt-4 flex items-end gap-2" aria-hidden="true">
+        @for (bar of bars; track bar) {
+          <li
+            class="flex-1 rounded-sm bg-[#111827]/10"
+            [style.height]="bar + '%'"
+            [style.min-height]="'8px'"
+          ></li>
+        }
+      </ul>
+    </article>
+
+    <article class="rounded-3xl bg-[#233142] p-6 text-white shadow-xl shadow-black/20">
+      <header class="flex items-center justify-between">
+        <h2 class="text-sm font-medium text-white/70">برترین رانندگان</h2>
+        <span
+          class="inline-flex items-center gap-1 rounded-full bg-sky-400/20 px-2 py-0.5 text-xs font-medium text-sky-200"
+        >
+          رتبه‌بندی
+        </span>
+      </header>
+      <ul class="mt-4 space-y-4">
+        @for (driver of drivers; track driver.name; let i = $index) {
+          <li class="flex items-center gap-3">
+            <span
+              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold"
+              [class]="i === 0 ? 'bg-amber-400/90 text-[#233142]' : 'bg-white/10 text-white/70'"
+            >
+              {{ i + 1 }}
+            </span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between text-sm">
+                <span class="font-medium text-white">{{ driver.name }}</span>
+                <span class="text-white/60">{{ driver.loads }} بار</span>
+              </div>
+              <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-sky-400 to-emerald-400"
+                  [style.width.%]="driver.score"
+                ></div>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-white/70">{{ driver.score }}%</span>
+          </li>
+        }
+      </ul>
+    </article>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
+    <article
+      class="rounded-3xl border border-white/60 bg-white/45 p-6 shadow-xl shadow-black/5 backdrop-blur-xl xl:col-span-2"
+    >
+      <header class="mb-4 flex items-center justify-between">
+        <h2 class="text-sm font-medium text-[#6b7280]">نقشه جهانی · هاب‌های مکان‌یابی</h2>
+        <span class="text-xs text-[#6b7280]">هاب‌های جهانی مرسوله</span>
+      </header>
+
+      <div class="relative">
+        <div
+          class="relative flex min-h-64 w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-white/30 p-2 shadow-lg"
+        >
+          <div class="relative w-full">
+            <img
+              src="/Photo/earth-map.jpg"
+              alt="نقشه جهانی با هاب‌های ارسال بار"
+              class="w-full object-contain"
+            />
+            <div
+              class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/30 via-transparent to-transparent"
+            ></div>
+            @for (hub of hubs; track hub.country) {
+              <div
+                class="absolute"
+                [style.left.%]="hub.cx"
+                [style.top.%]="hub.cy"
+              >
+                <span class="block h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400 shadow-[0_0_0_4px_rgba(56,189,248,0.3)]"></span>
+              </div>
+            }
+            <div
+              class="absolute right-4 top-4 rounded-xl border border-white/60 bg-white/70 px-3 py-2 shadow-sm backdrop-blur-xl"
+            >
+              <p class="text-[10px] font-medium text-[#6b7280]">بار فعال در سراسر جهان</p>
+              <p class="text-lg font-bold text-[#111827]">843</p>
+            </div>
+            <div
+              class="absolute bottom-3 left-4 rounded-xl border border-white/60 bg-white/70 px-3 py-2 shadow-sm backdrop-blur-xl"
+            >
+              <p class="text-[10px] font-medium text-[#6b7280]">هاب‌های زنده ارسال</p>
+              <p class="text-lg font-bold text-[#111827]">{{ hubs.length }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
+        @for (hub of hubs; track hub.country) {
+          <li class="flex items-center justify-between text-xs">
+            <span class="text-[#6b7280]">{{ hub.country }}</span>
+            <span class="font-semibold text-[#111827]">{{ hub.loads }}</span>
+          </li>
+        }
+      </ul>
+    </article>
+
+    <div class="grid grid-cols-1 gap-6">
+      <article
+        class="rounded-3xl border border-white/60 bg-white/45 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+      >
+        <header class="mb-4 flex items-center justify-between">
+          <h2 class="text-sm font-medium text-[#6b7280]">روند ارسال بار</h2>
+          <span class="text-xs text-[#6b7280]">۷ روز گذشته</span>
+        </header>
+        <div class="flex h-36 items-end gap-2">
+          @for (day of trend; track day.label) {
+            <div class="flex flex-1 flex-col items-center gap-2">
+              <div
+                class="w-full rounded-t-md bg-gradient-to-t from-sky-500/40 to-sky-400/80"
+                [style.height]="day.value + '%'"
+                style="min-height: 12px"
+              ></div>
+              <span class="text-[10px] text-[#6b7280]">{{ day.label }}</span>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article
+        class="rounded-3xl border border-white/60 bg-white/45 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+      >
+        <header class="mb-4 flex items-center justify-between">
+          <h2 class="text-sm font-medium text-[#6b7280]">بارگیری هاب‌ها</h2>
+          <span class="text-xs text-[#6b7280]">ظرفیت مصرف‌شده</span>
+        </header>
+        <div class="grid grid-cols-7 gap-1.5">
+          @for (cell of heatmap; track cell.label; let i = $index) {
+            <div
+              class="flex aspect-square items-center justify-center rounded-md text-[10px] font-medium text-[#111827]/80"
+              [class]="cell.class"
+            >
+              {{ cell.label }}
+            </div>
+          }
+        </div>
+        <div class="mt-4 flex items-center justify-between text-[10px] text-[#6b7280]">
+          <span>بار کم</span>
+          <div class="flex items-center gap-1.5">
+            @for (c of heatLegend; track c) {
+              <span class="h-2.5 w-2.5 rounded-sm" [class]="c"></span>
+            }
+          </div>
+          <span>نزدیک ظرفیت کامل</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
