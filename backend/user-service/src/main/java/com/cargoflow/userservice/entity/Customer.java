@@ -15,6 +15,10 @@ public class Customer {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false, unique = true)
+    private String keycloakId;
+
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
@@ -40,7 +44,8 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String name, String lastName, Integer age, String email, String phone) {
+    public Customer(String keycloakId, String name, String lastName, Integer age, String email, String phone) {
+        this.keycloakId = keycloakId;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -51,6 +56,8 @@ public class Customer {
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+    public String getKeycloakId() { return keycloakId; }
+    public void setKeycloakId(String keycloakId) { this.keycloakId = keycloakId; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getLastName() { return lastName; }
