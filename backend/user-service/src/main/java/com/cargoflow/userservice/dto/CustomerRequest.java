@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class CustomerRequest {
+    private String keycloakId;
+
     @NotBlank
     @Size(max = 100)
     private String name;
@@ -26,7 +28,8 @@ public class CustomerRequest {
 
     public CustomerRequest() {}
 
-    public CustomerRequest(String name, String lastName, Integer age, String email, String phone) {
+    public CustomerRequest(String keycloakId, String name, String lastName, Integer age, String email, String phone) {
+        this.keycloakId = keycloakId;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -34,6 +37,8 @@ public class CustomerRequest {
         this.phone = phone;
     }
 
+    public String getKeycloakId() { return keycloakId; }
+    public void setKeycloakId(String keycloakId) { this.keycloakId = keycloakId; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getLastName() { return lastName; }
