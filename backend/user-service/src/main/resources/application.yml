@@ -27,6 +27,14 @@ spring:
           issuer-uri: http://172.23.85.28:8084/realms/cargo
           jwk-set-uri: http://172.23.85.28:8084/realms/cargo/protocol/openid-connect/certs
 
+keycloak:
+  server-url: http://172.23.85.28:8084
+  realm: cargo
+  admin-client-id: admin-cli
+  admin-client-secret: ${KEYCLOAK_ADMIN_SECRET:}
+  admin-username: ${KEYCLOAK_ADMIN_USERNAME:admin}
+  admin-password: ${KEYCLOAK_ADMIN_PASSWORD:admin}
+
 logging:
   level:
     com.cargoflow.userservice: DEBUG
