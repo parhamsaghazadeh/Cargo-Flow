@@ -6,6 +6,7 @@ import com.cargoflow.userservice.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CustomerController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<CustomerResponse> create(@Valid @RequestBody CustomerRequest request) {
         CustomerResponse response = customerService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -39,6 +41,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         customerService.delete(id);
         return ResponseEntity.noContent().build();
