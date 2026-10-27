@@ -3,6 +3,7 @@ package com.cargoflow.userservice.config;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private static final String REALM_ACCESS = "realm_access";
+    private static final String RESOURCE_ACCESS = "resource_access";
     private static final String ROLES = "roles";
 
     @Bean
@@ -42,15 +44,36 @@ public class SecurityConfig {
     }
 
     private Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
+        return Stream.concat(
+                extractRealmRoles(jwt).stream(),
+                extractClientRoles(jwt).stream())
+                .distinct()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .map(GrantedAuthority.class::cast)
+                .toList();
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> extractRealmRoles(Jwt jwt) {
         Map<String, Object> realmAccess = jwt.getClaimAsMap(REALM_ACCESS);
         if (realmAccess == null || !realmAccess.containsKey(ROLES)) {
             return List.of();
         }
-        @SuppressWarnings("unchecked")
-        List<String> roles = (List<String>) realmAccess.get(ROLES);
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .map(GrantedAuthority.class::cast)
+        return (List<String>) realmAccess.get(ROLES);
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> extractClientRoles(Jwt jwt) {
+        Map<String, Object> resourceAccess = jwt.getClaimAsMap(RESOURCE_ACCESS);
+        if (resourceAccess == null || resourceAccess.isEmpty()) {
+            return List.of();
+        }
+        return resourceAccess.values().stream()
+                .filter(Map.class::isInstance)
+                .map(client -> (Map<String, Object>) client)
+                .filter(client -> client.containsKey(ROLES))
+                .flatMap(client -> ((List<String>) client.get(ROLES)).stream())
+                .distinct()
                 .toList();
     }
 }
