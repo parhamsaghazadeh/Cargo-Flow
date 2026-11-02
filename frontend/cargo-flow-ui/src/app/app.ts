@@ -64,7 +64,7 @@ export class App implements OnInit, OnDestroy {
   }
 
   onProfileClick(): void {
-    if (!this.isAuthed()) {
+    if (!this.authService.isAuthenticated) {
       this.router.navigate(['/login']);
       return;
     }
