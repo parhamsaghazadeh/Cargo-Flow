@@ -9,7 +9,7 @@ import { DriverDashboard } from './driver-dashboard/driver-dashboard';
 import { Profile } from './profile/profile';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', component: Dashboard },
   { path: 'login', component: Login },
   { path: 'dashboard', component: Dashboard },
   { path: 'customer-dashboard', component: CustomerDashboard, canActivate: [CustomerGuard] },
