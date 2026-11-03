@@ -1,0 +1,234 @@
+<div class="login-page">
+  <div class="glass-card">
+    <div class="card-header">
+      <div class="logo">CF</div>
+      <h1>خوش آمدید</h1>
+      <p>{{ mode() === 'login' ? 'برای ادامه وارد حساب کاربری خود شوید' : 'چند لحظه برای ثبت‌نام وقت بگذارید' }}</p>
+    </div>
+
+    <div class="mode-toggle">
+      <button
+        type="button"
+        (click)="setMode('login')"
+        [class.active]="mode() === 'login'"
+      >
+        ورود
+      </button>
+      <button
+        type="button"
+        (click)="setMode('signup')"
+        [class.active]="mode() === 'signup'"
+      >
+        ثبت‌نام
+      </button>
+    </div>
+
+    @if (mode() === 'login') {
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+        <div class="field">
+          <label for="identifier">ایمیل یا نام کاربری</label>
+          <input
+            id="identifier"
+            type="text"
+            formControlName="identifier"
+            placeholder="ایمیل یا نام کاربری"
+          />
+        </div>
+
+        <div class="field">
+          <label for="password">رمز عبور</label>
+          <div class="input-wrap">
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="رمز عبور"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword() ? 'پنهان کردن رمز عبور' : 'نمایش رمز عبور'"
+              class="eye-btn"
+            >
+              @if (showPassword()) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
+                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                  <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                  <line x1="2" x2="22" y1="2" y2="22"></line>
+                </svg>
+              } @else {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+
+        @if (errorMessage()) {
+          <div class="message error">{{ errorMessage() }}</div>
+        }
+        @if (successMessage()) {
+          <div class="message success">{{ successMessage() }}</div>
+        }
+
+        <button
+          type="submit"
+          [disabled]="submitting() || successMessage() !== null"
+          class="submit-btn"
+        >
+          @if (submitting()) {
+            <span class="spinner"></span>
+          }
+          {{ submitting() ? 'در حال ورود...' : 'ورود به حساب' }}
+        </button>
+      </form>
+    } @else {
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="auth-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="firstName">نام</label>
+            <input
+              id="firstName"
+              type="text"
+              formControlName="firstName"
+              placeholder="نام"
+            />
+          </div>
+          <div class="field">
+            <label for="lastName">نام خانوادگی</label>
+            <input
+              id="lastName"
+              type="text"
+              formControlName="lastName"
+              placeholder="نام خانوادگی"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="username">نام کاربری</label>
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            placeholder="نام کاربری"
+          />
+        </div>
+
+        <div class="field">
+          <label for="email">ایمیل</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="example@email.com"
+            dir="ltr"
+          />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">تلفن</label>
+            <input
+              id="phone"
+              type="tel"
+              formControlName="phone"
+              placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+              dir="ltr"
+            />
+          </div>
+          <div class="field">
+            <label for="signup-password">رمز عبور</label>
+            <div class="input-wrap">
+              <input
+                id="signup-password"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="••••••"
+                dir="ltr"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                [attr.aria-label]="showPassword() ? 'پنهان کردن رمز عبور' : 'نمایش رمز عبور'"
+                class="eye-btn"
+              >
+                @if (showPassword()) {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                    <line x1="2" x2="22" y1="2" y2="22"></line>
+                  </svg>
+                } @else {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">تکرار رمز عبور</label>
+          <div class="input-wrap">
+            <input
+              id="confirmPassword"
+              [type]="showConfirmPassword() ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="تکرار رمز عبور"
+              dir="ltr"
+            />
+            <button
+              type="button"
+              (click)="toggleConfirmPasswordVisibility()"
+              [attr.aria-label]="showConfirmPassword() ? 'پنهان کردن رمز عبور' : 'نمایش رمز عبور'"
+              class="eye-btn"
+            >
+              @if (showConfirmPassword()) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
+                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                  <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                  <line x1="2" x2="22" y1="2" y2="22"></line>
+                </svg>
+              } @else {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+
+        @if (signupForm.get('confirmPassword')?.hasError('mismatch') && signupForm.get('confirmPassword')?.touched) {
+          <span class="mismatch-hint">رمز عبور و تکرار آن یکسان نیستند</span>
+        }
+
+        @if (errorMessage()) {
+          <div class="message error">{{ errorMessage() }}</div>
+        }
+        @if (successMessage()) {
+          <div class="message success">{{ successMessage() }}</div>
+        }
+
+        <button
+          type="submit"
+          [disabled]="submitting() || signupForm.invalid"
+          class="submit-btn"
+        >
+          @if (submitting()) {
+            <span class="spinner"></span>
+          }
+          {{ submitting() ? 'در حال ثبت‌نام...' : 'ساخت حساب کاربری' }}
+        </button>
+      </form>
+    }
+  </div>
+</div>
