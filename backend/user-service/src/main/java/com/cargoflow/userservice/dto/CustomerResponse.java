@@ -1,5 +1,6 @@
 package com.cargoflow.userservice.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CustomerResponse {
@@ -9,6 +10,8 @@ public class CustomerResponse {
     private Integer age;
     private String email;
     private String phone;
+    private LocalDate dateOfBirth;
+    private String address;
     private LocalDateTime createdAt;
 
     public CustomerResponse() {}
@@ -21,6 +24,13 @@ public class CustomerResponse {
         this.email = email;
         this.phone = phone;
         this.createdAt = createdAt;
+    }
+
+    public CustomerResponse(Long id, String name, String lastName, Integer age, String email, String phone,
+                            LocalDate dateOfBirth, String address, LocalDateTime createdAt) {
+        this(id, name, lastName, age, email, phone, createdAt);
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
     }
 
     public Long getId() { return id; }
@@ -37,4 +47,8 @@ public class CustomerResponse {
     public void setPhone(String phone) { this.phone = phone; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 }

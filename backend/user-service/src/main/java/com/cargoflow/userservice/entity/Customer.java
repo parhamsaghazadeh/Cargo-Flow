@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -38,6 +39,12 @@ public class Customer {
     @Column(nullable = false)
     private String phone;
 
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @Column(name = "address", length = 500)
+    private String address;
+
     @NotNull
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -51,6 +58,13 @@ public class Customer {
         this.age = age;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Customer(String keycloakId, String name, String lastName, Integer age, String email, String phone,
+                    LocalDate dateOfBirth, String address) {
+        this(keycloakId, name, lastName, age, email, phone);
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
     }
 
     // Getters and Setters
@@ -70,4 +84,8 @@ public class Customer {
     public void setPhone(String phone) { this.phone = phone; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 }

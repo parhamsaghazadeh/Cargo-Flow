@@ -8,5 +8,6 @@ public interface CustomerService {
     CustomerResponse create(CustomerRequest request);
     CustomerResponse getById(Long id);
     List<CustomerResponse> getAll();
+    CustomerResponse update(Long id, CustomerRequest request);
     void delete(Long id);
 }

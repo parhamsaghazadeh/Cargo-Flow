@@ -40,6 +40,14 @@ public class CustomerController {
         return ResponseEntity.ok(responses);
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<CustomerResponse> update(@PathVariable("id") Long id,
+                                                    @Valid @RequestBody CustomerRequest request) {
+        CustomerResponse response = customerService.update(id, request);
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {

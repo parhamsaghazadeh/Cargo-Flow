@@ -3,6 +3,7 @@ package com.cargoflow.userservice.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
 
 public class CustomerRequest {
     private String keycloakId;
@@ -26,6 +27,11 @@ public class CustomerRequest {
     @Size(max = 20)
     private String phone;
 
+    private LocalDate dateOfBirth;
+
+    @Size(max = 500)
+    private String address;
+
     public CustomerRequest() {}
 
     public CustomerRequest(String keycloakId, String name, String lastName, Integer age, String email, String phone) {
@@ -35,6 +41,13 @@ public class CustomerRequest {
         this.age = age;
         this.email = email;
         this.phone = phone;
+    }
+
+    public CustomerRequest(String keycloakId, String name, String lastName, Integer age, String email, String phone,
+                           LocalDate dateOfBirth, String address) {
+        this(keycloakId, name, lastName, age, email, phone);
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
     }
 
     public String getKeycloakId() { return keycloakId; }
@@ -49,4 +62,8 @@ public class CustomerRequest {
     public void setEmail(String email) { this.email = email; }
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 }

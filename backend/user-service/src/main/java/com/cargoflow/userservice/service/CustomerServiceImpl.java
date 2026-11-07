@@ -24,7 +24,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerResponse create(CustomerRequest request) {
-        Customer customer = new Customer(request.getKeycloakId(), request.getName(), request.getLastName(), request.getAge(), request.getEmail(), request.getPhone());
+        Customer customer = new Customer(request.getKeycloakId(), request.getName(), request.getLastName(),
+                request.getAge(), request.getEmail(), request.getPhone(),
+                request.getDateOfBirth(), request.getAddress());
         Customer saved = customerRepository.save(customer);
         return mapToResponse(saved);
     }
@@ -45,6 +47,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
+    public CustomerResponse update(Long id, CustomerRequest request) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
+        customer.setName(request.getName());
+        customer.setLastName(request.getLastName());
+        customer.setAge(request.getAge());
+        customer.setEmail(request.getEmail());
+        customer.setPhone(request.getPhone());
+        customer.setDateOfBirth(request.getDateOfBirth());
+        customer.setAddress(request.getAddress());
+        Customer saved = customerRepository.save(customer);
+        return mapToResponse(saved);
+    }
+
+    @Override
+    @Transactional
     public void delete(Long id) {
         if (!customerRepository.existsById(id)) {
             throw new ResourceNotFoundException("Customer not found with id: " + id);
@@ -60,6 +78,8 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.getAge(),
                 customer.getEmail(),
                 customer.getPhone(),
+                customer.getDateOfBirth(),
+                customer.getAddress(),
                 customer.getCreatedAt()
         );
     }
