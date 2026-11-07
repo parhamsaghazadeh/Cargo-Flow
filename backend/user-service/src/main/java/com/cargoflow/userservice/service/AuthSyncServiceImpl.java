@@ -87,6 +87,8 @@ public class AuthSyncServiceImpl implements AuthSyncService {
                 customer.getAge(),
                 customer.getEmail(),
                 customer.getPhone(),
+                customer.getDateOfBirth(),
+                customer.getAddress(),
                 customer.getCreatedAt()
         );
     }

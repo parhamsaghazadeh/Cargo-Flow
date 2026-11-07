@@ -70,6 +70,8 @@ public class AuthSyncController {
                 customer.getAge(),
                 customer.getEmail(),
                 customer.getPhone(),
+                customer.getDateOfBirth(),
+                customer.getAddress(),
                 username,
                 keycloakId,
                 roles
