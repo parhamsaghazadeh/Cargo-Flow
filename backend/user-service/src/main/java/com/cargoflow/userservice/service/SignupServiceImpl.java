@@ -85,6 +85,8 @@ public class SignupServiceImpl implements SignupService {
                 customer.getAge(),
                 customer.getEmail(),
                 customer.getPhone(),
+                customer.getDateOfBirth(),
+                customer.getAddress(),
                 customer.getCreatedAt()
         );
     }
