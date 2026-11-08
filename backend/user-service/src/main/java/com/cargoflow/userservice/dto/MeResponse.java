@@ -1,5 +1,6 @@
 package com.cargoflow.userservice.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class MeResponse {
@@ -9,6 +10,8 @@ public class MeResponse {
     private Integer age;
     private String email;
     private String phone;
+    private LocalDate dateOfBirth;
+    private String address;
     private String username;
     private String keycloakId;
     private List<String> roles;
@@ -26,6 +29,13 @@ public class MeResponse {
         this.username = username;
         this.keycloakId = keycloakId;
         this.roles = roles;
+    }
+
+    public MeResponse(Long id, String name, String lastName, Integer age, String email, String phone,
+                      LocalDate dateOfBirth, String address, String username, String keycloakId, List<String> roles) {
+        this(id, name, lastName, age, email, phone, username, keycloakId, roles);
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
     }
 
     public Long getId() { return id; }
@@ -46,4 +56,8 @@ public class MeResponse {
     public void setKeycloakId(String keycloakId) { this.keycloakId = keycloakId; }
     public List<String> getRoles() { return roles; }
     public void setRoles(List<String> roles) { this.roles = roles; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 }

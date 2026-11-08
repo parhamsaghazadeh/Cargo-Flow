@@ -28,12 +28,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/actuator/health", "/api/v1/auth/signup", "/api/v1/auth/check").permitAll()
-                .anyRequest().authenticated())
-            .oauth2ResourceServer(oauth2 -> oauth2
-                .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/actuator/health", "/api/v1/auth/signup", "/api/v1/auth/check").permitAll()
+                        .anyRequest().authenticated())
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
         return http.build();
     }
 
@@ -45,15 +45,15 @@ public class SecurityConfig {
 
     private Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
         return Stream.concat(
-                extractRealmRoles(jwt).stream(),
-                extractClientRoles(jwt).stream())
+                        extractRealmRoles(jwt).stream(),
+                        extractClientRoles(jwt).stream())
                 .distinct()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .map(GrantedAuthority.class::cast)
                 .toList();
     }
 
-    @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
     private List<String> extractRealmRoles(Jwt jwt) {
         Map<String, Object> realmAccess = jwt.getClaimAsMap(REALM_ACCESS);
         if (realmAccess == null || !realmAccess.containsKey(ROLES)) {
