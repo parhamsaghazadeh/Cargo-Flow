@@ -16,12 +16,25 @@ export class App implements OnInit, OnDestroy {
   protected readonly profile = signal<UserProfile | null>(null);
   protected readonly isAuthed = signal(false);
 
-  protected readonly navItems = [
-    { label: 'داشبورد', link: '/dashboard', icon: 'dashboard', customerOnly: false },
-    { label: 'مرسوله‌ها', link: '/shipments', icon: 'shipments', customerOnly: true },
-    { label: 'ناوگان', link: '/fleet', icon: 'fleet', customerOnly: false },
-    { label: 'تحویل‌ها', link: '/deliveries', icon: 'deliveries', customerOnly: false },
-    { label: 'هاب‌ها', link: '/hubs', icon: 'hubs', customerOnly: false },
+  protected readonly navItems: Array<{
+    label: string;
+    link: string;
+    icon: string;
+    roles?: string[];
+  }> = [
+    { label: 'داشبورد', link: '/dashboard', icon: 'dashboard' },
+    { label: 'مرسوله‌ها', link: '/shipments', icon: 'shipments', roles: ['CUSTOMER'] },
+    { label: 'ناوگان', link: '/fleet', icon: 'fleet' },
+    { label: 'تحویل‌ها', link: '/deliveries', icon: 'deliveries' },
+    { label: 'هاب‌ها', link: '/hubs', icon: 'hubs' },
+    { label: 'ثبت سفارش جدید', link: '/customer/new-order', icon: 'new-order', roles: ['CUSTOMER'] },
+    { label: 'مدیریت و پیگیری سفارش‌ها', link: '/customer/order-tracking', icon: 'tracking', roles: ['CUSTOMER'] },
+    { label: 'مدیریت آدرس‌های پرکاربرد', link: '/customer/addresses', icon: 'addresses', roles: ['CUSTOMER'] },
+    { label: 'صورت‌حساب و پرداخت‌ها', link: '/customer/billing', icon: 'billing', roles: ['CUSTOMER'] },
+    { label: 'بازارچه بارهای موجود', link: '/driver/marketplace', icon: 'marketplace', roles: ['DRIVER'] },
+    { label: 'سفر فعال و نقشه', link: '/driver/active-trip', icon: 'active-trip', roles: ['DRIVER'] },
+    { label: 'وضعیت آماده‌به‌کار', link: '/driver/ready-status', icon: 'ready-status', roles: ['DRIVER'] },
+    { label: 'کیف پول و درآمدها', link: '/driver/wallet', icon: 'wallet', roles: ['DRIVER'] },
   ];
 
   private subscription?: { unsubscribe: () => void };
@@ -46,7 +59,7 @@ export class App implements OnInit, OnDestroy {
 
   private updateShell(): void {
     const url = this.router.url.split('?')[0];
-    this.showShell.set(url !== '/login');
+    this.showShell.set(url !== '/login' && url !== '/business' && url !== '/gateway');
   }
 
   get profileInitials(): string {
