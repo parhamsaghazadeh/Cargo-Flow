@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,12 @@ import { Component, OnDestroy, OnInit, signal } from '@angular/core';
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit, OnDestroy {
+  constructor(private readonly router: Router) {}
+
+  protected openGateway(): void {
+    void this.router.navigate(['/business']);
+  }
+
   protected readonly bars = [32, 48, 40, 62, 52, 74, 66, 84, 70, 92, 78, 88];
 
   protected readonly trucks = [
