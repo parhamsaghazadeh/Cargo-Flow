@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class SignupRequest {
@@ -39,6 +40,10 @@ public class SignupRequest {
     @Max(120)
     private Integer age;
 
+    @NotBlank
+    @Pattern(regexp = "^(CUSTOMER|DRIVER)$", message = "role must be either CUSTOMER or DRIVER")
+    private String role = "CUSTOMER";
+
     public SignupRequest() {}
 
     public String getUsername() { return username; }
@@ -55,4 +60,6 @@ public class SignupRequest {
     public void setPhone(String phone) { this.phone = phone; }
     public Integer getAge() { return age; }
     public void setAge(Integer age) { this.age = age; }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

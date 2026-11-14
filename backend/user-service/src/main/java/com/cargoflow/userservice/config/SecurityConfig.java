@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .toList();
     }
 
-        @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     private List<String> extractRealmRoles(Jwt jwt) {
         Map<String, Object> realmAccess = jwt.getClaimAsMap(REALM_ACCESS);
         if (realmAccess == null || !realmAccess.containsKey(ROLES)) {

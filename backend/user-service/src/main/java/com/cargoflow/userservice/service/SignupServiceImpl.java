@@ -4,12 +4,19 @@ import com.cargoflow.userservice.config.KeycloakProperties;
 import com.cargoflow.userservice.dto.CustomerResponse;
 import com.cargoflow.userservice.dto.SignupRequest;
 import com.cargoflow.userservice.entity.Customer;
+import com.cargoflow.userservice.entity.Driver;
 import com.cargoflow.userservice.exception.BusinessRuleViolationException;
 import com.cargoflow.userservice.repository.CustomerRepository;
+import com.cargoflow.userservice.repository.DriverRepository;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.RoleScopeResource;
+import org.keycloak.admin.client.resource.RolesResource;
+import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +28,14 @@ public class SignupServiceImpl implements SignupService {
     private final Keycloak keycloak;
     private final KeycloakProperties keycloakProperties;
     private final CustomerRepository customerRepository;
+    private final DriverRepository driverRepository;
 
     public SignupServiceImpl(Keycloak keycloak, KeycloakProperties keycloakProperties,
-                             CustomerRepository customerRepository) {
+                             CustomerRepository customerRepository, DriverRepository driverRepository) {
         this.keycloak = keycloak;
         this.keycloakProperties = keycloakProperties;
         this.customerRepository = customerRepository;
+        this.driverRepository = driverRepository;
     }
 
     @Override
@@ -43,6 +52,10 @@ public class SignupServiceImpl implements SignupService {
         if (customerRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new BusinessRuleViolationException("Email already registered: " + request.getEmail());
         }
+
+        String role = request.getRole() == null || request.getRole().isBlank()
+                ? "CUSTOMER"
+                : request.getRole().trim().toUpperCase();
 
         UserRepresentation user = new UserRepresentation();
         user.setUsername(request.getUsername());
@@ -66,10 +79,37 @@ public class SignupServiceImpl implements SignupService {
             keycloakId = extractKeycloakId(createResponse.getLocation().getPath());
         }
 
+        assignRealmRole(keycloakId, role);
+
         Customer customer = new Customer(keycloakId, request.getFirstName(), request.getLastName(),
                 request.getAge(), request.getEmail(), request.getPhone());
         Customer saved = customerRepository.save(customer);
+
+        if ("DRIVER".equals(role)) {
+            Driver driver = new Driver(saved, "CF-DRV-" + saved.getId());
+            driverRepository.save(driver);
+        }
+
         return mapToResponse(saved);
+    }
+
+    private void assignRealmRole(String keycloakId, String role) {
+        RealmResource realm = keycloak.realm(keycloakProperties.getRealm());
+        RolesResource rolesResource = realm.roles();
+        RoleRepresentation realmRole;
+        try {
+            realmRole = rolesResource.get(role).toRepresentation();
+        } catch (jakarta.ws.rs.NotFoundException e) {
+            RoleRepresentation newRole = new RoleRepresentation();
+            newRole.setName(role);
+            rolesResource.create(newRole);
+            realmRole = rolesResource.get(role).toRepresentation();
+        }
+        UserResource userResource = realm.users().get(keycloakId);
+        RoleScopeResource roleScope = userResource.roles().realmLevel();
+        if (!roleScope.listAll().stream().anyMatch(r -> role.equals(r.getName()))) {
+            roleScope.add(java.util.List.of(realmRole));
+        }
     }
 
     private String extractKeycloakId(String locationPath) {
