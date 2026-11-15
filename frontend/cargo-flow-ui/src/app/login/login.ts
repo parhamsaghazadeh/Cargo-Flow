@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -13,6 +13,14 @@ export class Login implements OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
+  constructor() {
+    const roleParam = this.route.snapshot.queryParamMap.get('role');
+    if (roleParam === 'DRIVER' || roleParam === 'CUSTOMER') {
+      this.authService.setSelectedRole(roleParam);
+    }
+  }
 
   protected readonly mode = signal<'login' | 'signup'>('login');
   protected readonly showPassword = signal(false);
@@ -74,7 +82,16 @@ export class Login implements OnDestroy {
       await this.authService.loginWithPassword(identifier, password);
       this.authService.setLoginSuccess();
       this.successMessage.set('ورود با موفقیت انجام شد');
-      this.timer = setTimeout(() => this.router.navigate(['/']), 1200);
+      const roleParam = this.route.snapshot.queryParamMap.get('role');
+      this.timer = setTimeout(() => {
+        if (roleParam === 'DRIVER') {
+          void this.router.navigate(['/driver-dashboard']);
+        } else if (roleParam === 'CUSTOMER') {
+          void this.router.navigate(['/customer-dashboard']);
+        } else {
+          void this.router.navigate(['/']);
+        }
+      }, 1200);
     } catch (error: unknown) {
       this.errorMessage.set(this.extractError(error));
     } finally {
@@ -98,7 +115,8 @@ export class Login implements OnDestroy {
         email: values.email,
         phone: values.phone,
         password: values.password,
-        age: 0,
+        age: 18,
+        role: this.authService.getSelectedRole() ?? undefined,
       });
       this.successMessage.set('ثبت‌نام با موفقیت انجام شد. اکنون وارد شوید.');
       this.setMode('login');
