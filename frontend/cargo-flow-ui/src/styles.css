@@ -3,9 +3,9 @@
 @source "./app/**/*.html";
 
 @theme {
-  --color-glass: rgba(255, 255, 255, 0.08);
-  --color-glass-strong: rgba(255, 255, 255, 0.14);
-  --color-glass-border: rgba(255, 255, 255, 0.18);
+  --color-glass: rgba(255, 255, 255, 0.7);
+  --color-glass-strong: rgba(249, 249, 249, 0.8);
+  --color-glass-border: #e5e5e5;
 }
 
 html,
@@ -16,8 +16,36 @@ body {
 body {
   margin: 0;
   font-family: "Vazirmatn", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(to bottom right, #c3d1dc, #e2dedd, #d6c5cc);
+  background: linear-gradient(to bottom, #ffffff, #f7f9fa);
   background-attachment: fixed;
-  color: #111827;
+  color: #0b0b0b;
   direction: rtl;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  width: 520px;
+  height: 520px;
+  top: -160px;
+  right: -140px;
+  background: rgba(42, 157, 143, 0.13);
+}
+
+body::after {
+  width: 460px;
+  height: 460px;
+  bottom: -140px;
+  left: -120px;
+  background: rgba(244, 63, 94, 0.1);
 }
