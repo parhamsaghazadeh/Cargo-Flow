@@ -1,15 +1,37 @@
+<div
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+>
+  <div
+    class="absolute right-[-10rem] top-[-12rem] h-[640px] w-[640px] rounded-full opacity-75 blur-[150px]"
+    style="background: radial-gradient(circle at center, rgba(42,157,143,0.85) 0%, rgba(42,157,143,0) 70%)"
+  ></div>
+  <div
+    class="absolute left-[-8rem] top-[-6rem] h-[560px] w-[560px] rounded-full opacity-70 blur-[150px]"
+    style="background: radial-gradient(circle at center, rgba(251,113,133,0.7) 0%, rgba(251,113,133,0) 70%)"
+  ></div>
+  <div
+    class="absolute bottom-[-10rem] left-[-8rem] h-[600px] w-[600px] rounded-full opacity-70 blur-[140px]"
+    style="background: radial-gradient(circle at center, rgba(42,157,143,0.65) 0%, rgba(42,157,143,0) 70%)"
+  ></div>
+  <div
+    class="absolute right-[6%] top-[38%] h-[520px] w-[520px] rounded-full opacity-65 blur-[160px]"
+    style="background: radial-gradient(circle at center, rgba(125,211,252,0.6) 0%, rgba(125,211,252,0) 70%)"
+  ></div>
+</div>
+
 @if (showShell()) {
-  <div class="flex min-h-screen">
+  <div class="relative flex min-h-screen">
   <aside
-    class="fixed inset-y-0 right-0 z-30 flex w-16 flex-col items-center gap-4 border-l border-white/60 bg-white/45 px-3 py-5 backdrop-blur-xl md:w-60 md:items-stretch"
+    class="fixed inset-y-0 right-0 z-30 flex w-16 flex-col items-center gap-4 border-l border-[#2A9D8F]/30 bg-white/70 px-3 py-5 backdrop-blur-xl md:w-60 md:items-stretch"
   >
     <div class="mb-4 flex items-center gap-3 px-2">
       <div
-        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 font-bold text-white"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#0B0B0B] to-[#1A1A1A] font-bold text-white"
       >
         CF
       </div>
-      <span class="hidden text-sm font-semibold text-[#111827] md:block">Cargo-Flow</span>
+      <span class="hidden text-sm font-semibold text-[#0B0B0B] md:block">Cargo-Flow</span>
     </div>
 
     <nav class="flex flex-col gap-1">
@@ -17,9 +39,9 @@
         <a
           *ngIf="!item.roles || (authService.isLoggedIn() && authService.hasRole(item.roles[0]))"
           [routerLink]="item.link"
-          routerLinkActive="bg-white/70 text-[#111827] shadow-sm"
+          routerLinkActive="bg-[#0B0B0B] text-white shadow-md"
           [routerLinkActiveOptions]="{ exact: item.link === '/dashboard' }"
-          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#6b7280] transition hover:bg-white/60 hover:text-[#111827]"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#0B0B0B] transition hover:bg-[#333333]/10 hover:text-[#0B0B0B]"
         >
           <span class="inline-block h-4 w-4 shrink-0">
             @switch (item.icon) {
@@ -115,28 +137,28 @@
 
   <div class="flex min-h-screen w-full flex-col md:pr-60">
     <header
-      class="sticky top-0 z-20 flex items-center gap-4 border-b border-white/60 bg-white/45 px-6 py-3.5 backdrop-blur-xl"
+      class="sticky top-0 z-20 flex items-center gap-4 border-b border-[#2A9D8F]/30 bg-white/70 px-6 py-3.5 backdrop-blur-xl"
     >
       <div class="hidden items-center gap-4 md:flex">
         <div class="flex items-center gap-2">
           <button
             *ngIf="authService.hasRole('CUSTOMER')"
             type="button"
-            class="rounded-full bg-[#111827] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#1e293b]"
+            class="rounded-full bg-[#0B0B0B] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#333333]"
             aria-label="Add shipment"
           >
             + جدید
           </button>
           <button
             type="button"
-            class="rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-medium text-[#111827] transition hover:bg-white/80"
+            class="rounded-full border border-[#2A9D8F]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#0B0B0B] transition hover:bg-white/90"
             aria-label="Export"
           >
             خروجی
           </button>
           <button
             type="button"
-            class="rounded-full border border-white/70 bg-white/60 px-3 py-2 text-sm font-medium text-[#111827] transition hover:bg-white/80"
+            class="rounded-full border border-[#2A9D8F]/30 bg-white/70 px-3 py-2 text-sm font-medium text-[#0B0B0B] transition hover:bg-white/90"
             aria-label="Filter"
           >
             فیلتر
@@ -150,7 +172,7 @@
           fill="none"
           stroke="currentColor"
           stroke-width="2"
-          class="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6b7280]"
+          class="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6B6B6B]"
         >
           <circle cx="11" cy="11" r="7"></circle>
           <path d="m21 21-4.3-4.3"></path>
@@ -158,14 +180,14 @@
         <input
           type="text"
           placeholder="جستجوی مرسوله‌ها، رانندگان یا مسیرها..."
-          class="w-full rounded-full border border-white/60 bg-white/50 py-2.5 pr-10 pl-4 text-sm text-[#111827] placeholder-[#6b7280] outline-none backdrop-blur-xl transition focus:border-white/80 focus:bg-white/70 focus:ring-2 focus:ring-sky-500/20"
+          class="w-full rounded-full border border-[#2A9D8F]/30 bg-white/70 py-2.5 pr-10 pl-4 text-sm text-[#0B0B0B] placeholder-[#D9D9D9] outline-none backdrop-blur-xl transition focus:border-[#2A9D8F]/60 focus:bg-white/80 focus:ring-2 focus:ring-[#2A9D8F]/20"
         />
       </div>
 
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="rounded-full border border-white/70 bg-white/60 p-2 text-[#111827] transition hover:bg-white/80"
+          class="rounded-full border border-[#2A9D8F]/30 bg-white/70 p-2 text-[#0B0B0B] transition hover:bg-white/90"
           aria-label="Monthly filter"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
@@ -175,7 +197,7 @@
         </button>
         <button
           type="button"
-          class="relative rounded-full border border-white/70 bg-white/60 p-2 text-[#111827] transition hover:bg-white/80"
+          class="relative rounded-full border border-[#2A9D8F]/30 bg-white/70 p-2 text-[#0B0B0B] transition hover:bg-white/90"
           aria-label="Notifications"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
@@ -189,40 +211,40 @@
             (click)="onProfileClick()"
             type="button"
             [attr.aria-label]="isAuthed() ? 'نمایه کاربر' : 'ورود'"
-            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-500 text-sm font-semibold text-white ring-2 ring-white/80 transition hover:ring-3"
+            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gradient-to-br from-[#0B0B0B] to-[#1A1A1A] text-sm font-semibold text-white ring-2 ring-[#2A9D8F]/30 transition hover:ring-3"
           >
             {{ profileInitials }}
           </button>
 
           @if (profileOpen() && profile(); as p) {
             <div
-              class="absolute left-0 top-12 z-40 w-72 rounded-3xl border border-white/60 bg-white/90 p-5 shadow-2xl shadow-black/10 backdrop-blur-2xl"
+              class="absolute left-0 top-12 z-40 w-72 rounded-3xl border border-[#2A9D8F]/30 bg-white/80 p-5 shadow-2xl shadow-black/10 backdrop-blur-xl"
             >
-              <div class="flex items-center gap-3 border-b border-white/60 pb-4">
+              <div class="flex items-center gap-3 border-b border-[#2A9D8F]/30 pb-4">
                 <div
-                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-500 text-lg font-bold text-white"
+                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0B0B0B] to-[#1A1A1A] text-lg font-bold text-white"
                 >
                   {{ profileInitials }}
                 </div>
                 <div class="min-w-0">
-                  <p class="truncate text-base font-semibold text-[#111827]">
+                  <p class="truncate text-base font-semibold text-[#0B0B0B]">
                     {{ p.firstName }} {{ p.lastName }}
                   </p>
-                  <p class="truncate text-sm text-[#6b7280]" dir="ltr">{{ p.username }}</p>
+                  <p class="truncate text-sm text-[#6B6B6B]" dir="ltr">{{ p.username }}</p>
                 </div>
               </div>
 
-              <ul class="mt-4 space-y-2.5 text-sm text-[#111827]">
+              <ul class="mt-4 space-y-2.5 text-sm text-[#0B0B0B]">
                 <li class="flex items-center justify-between">
-                  <span class="text-[#6b7280]">نام</span>
+                  <span class="text-[#6B6B6B]">نام</span>
                   <span>{{ p.firstName }}</span>
                 </li>
                 <li class="flex items-center justify-between">
-                  <span class="text-[#6b7280]">نام خانوادگی</span>
+                  <span class="text-[#6B6B6B]">نام خانوادگی</span>
                   <span>{{ p.lastName }}</span>
                 </li>
                 <li class="flex items-center justify-between">
-                  <span class="text-[#6b7280]">تلفن</span>
+                  <span class="text-[#6B6B6B]">تلفن</span>
                   <span dir="ltr">{{ p.phone || '—' }}</span>
                 </li>
               </ul>
@@ -230,7 +252,7 @@
               <div class="mt-4 flex flex-wrap gap-2">
                 @for (role of p.roles; track role) {
                   <span
-                    class="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-xs font-medium text-sky-700"
+                    class="rounded-full bg-[#333333]/10 px-2.5 py-0.5 text-xs font-medium text-[#6B6B6B]"
                   >
                     {{ role }}
                   </span>
@@ -240,7 +262,7 @@
               <button
                 (click)="logout()"
                 type="button"
-                class="mt-5 w-full rounded-2xl bg-[#111827] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#1e293b]"
+                class="mt-5 w-full rounded-2xl bg-[#0B0B0B] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#333333]"
               >
                 خروج از حساب
               </button>
