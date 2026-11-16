@@ -5,7 +5,7 @@
       <p class="mt-1 text-sm text-[#6B6B6B]">سیستم هوشمند ترابری</p>
     </div>
     <span
-      class="inline-flex items-center gap-2 rounded-full border border-[#2A9D8F]/30 bg-white/70 px-3 py-1.5 text-xs font-medium text-[#0B0B0B] shadow-sm backdrop-blur-xl"
+      class="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/55 px-3 py-1.5 text-xs font-medium text-[#0B0B0B] shadow-sm backdrop-blur-2xl"
     >
       <span class="h-2 w-2 rounded-full bg-[#2A9D8F]"></span>
       زنده · همین حالا به‌روزرسانی شد
@@ -13,7 +13,7 @@
   </div>
 
   <article
-    class="overflow-hidden rounded-3xl border border-[#2A9D8F]/30 bg-gradient-to-br from-[#E0F7F4] to-white shadow-2xl shadow-teal-900/5 backdrop-blur-xl"
+    class="overflow-hidden rounded-3xl border border-white/50 bg-white/55 shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl"
   >
     <div class="grid grid-cols-1 lg:grid-cols-2">
       <div class="relative flex flex-col items-center justify-center overflow-hidden p-6">
@@ -85,7 +85,7 @@
           </button>
           <button
             type="button"
-            class="cursor-pointer rounded-full border border-[#2A9D8F]/30 bg-white/70 px-5 py-2.5 text-sm font-medium text-[#0B0B0B] transition-all duration-300 hover:bg-white/90"
+            class="cursor-pointer rounded-full border border-white/60 bg-white/60 px-5 py-2.5 text-sm font-medium text-[#0B0B0B] transition-all duration-300 hover:bg-white/80"
           >
             درباره ما
           </button>
@@ -96,7 +96,7 @@
 
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
     <article
-      class="rounded-3xl border border-[#2A9D8F]/30 bg-white/70 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+      class="rounded-3xl border border-white/50 bg-white/55 p-6 shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl"
     >
       <header class="flex items-center justify-between">
         <h2 class="text-sm font-medium text-[#6B6B6B]">فعالیت روزانه کاربران</h2>
@@ -128,7 +128,7 @@
     </article>
 
     <article
-      class="rounded-3xl border border-[#2A9D8F]/30 bg-white/70 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+      class="rounded-3xl border border-white/50 bg-white/55 p-6 shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl"
     >
       <header class="flex items-center justify-between">
         <h2 class="text-sm font-medium text-[#6B6B6B]">تعداد سفارشات روزانه</h2>
@@ -169,7 +169,7 @@
       </ul>
     </article>
 
-    <article class="rounded-3xl border border-[#2A9D8F]/30 bg-gradient-to-br from-[#E0F7F4] to-white p-6 text-[#0B0B0B] shadow-2xl shadow-teal-900/5 backdrop-blur-xl">
+    <article class="rounded-3xl border border-white/50 bg-white/55 p-6 text-[#0B0B0B] shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl">
       <header class="flex items-center justify-between">
         <h2 class="text-sm font-medium text-[#6B6B6B]">برترین رانندگان</h2>
         <span
@@ -208,7 +208,7 @@
 
   <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
     <article
-      class="rounded-3xl border border-[#2A9D8F]/30 bg-white/70 p-6 shadow-xl shadow-black/5 backdrop-blur-xl xl:col-span-2"
+      class="rounded-3xl border border-white/50 bg-white/55 p-6 shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl xl:col-span-2"
     >
       <header class="mb-4 flex items-center justify-between">
         <h2 class="text-sm font-medium text-[#6B6B6B]">نقشه جهانی · هاب‌های مکان‌یابی</h2>
@@ -217,7 +217,7 @@
 
       <div class="relative">
         <div
-          class="relative flex min-h-64 w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-[#2A9D8F]/30 bg-white/40 p-2 shadow-lg"
+          class="relative flex min-h-64 w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/50 bg-white/30 p-2 shadow-inner ring-1 ring-black/5"
         >
           <div class="relative w-full">
             <img
@@ -225,9 +225,6 @@
               alt="نقشه جهانی با هاب‌های ارسال بار"
               class="w-full object-contain"
             />
-            <div
-              class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-[#2A9D8F]/25 via-transparent to-transparent"
-            ></div>
             @for (hub of hubs; track hub.country) {
               <div
                 class="absolute"
@@ -238,13 +235,13 @@
               </div>
             }
             <div
-              class="absolute right-4 top-4 rounded-xl border border-[#2A9D8F]/30 bg-white/70 px-3 py-2 shadow-sm backdrop-blur-xl"
+              class="absolute right-4 top-4 rounded-xl border border-white/50 bg-white/60 px-3 py-2 shadow-sm backdrop-blur-xl"
             >
               <p class="text-[10px] font-medium text-[#6B6B6B]">بار فعال در سراسر جهان</p>
               <p class="text-lg font-bold text-[#0B0B0B]">843</p>
             </div>
             <div
-              class="absolute bottom-3 left-4 rounded-xl border border-[#2A9D8F]/30 bg-white/70 px-3 py-2 shadow-sm backdrop-blur-xl"
+              class="absolute bottom-3 left-4 rounded-xl border border-white/50 bg-white/60 px-3 py-2 shadow-sm backdrop-blur-xl"
             >
               <p class="text-[10px] font-medium text-[#6B6B6B]">هاب‌های زنده ارسال</p>
               <p class="text-lg font-bold text-[#0B0B0B]">{{ hubs.length }}</p>
@@ -265,7 +262,7 @@
 
     <div class="grid grid-cols-1 gap-6">
       <article
-        class="rounded-3xl border border-[#2A9D8F]/30 bg-white/70 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+        class="rounded-3xl border border-white/50 bg-white/55 p-6 shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl"
       >
         <header class="mb-4 flex items-center justify-between">
           <h2 class="text-sm font-medium text-[#6B6B6B]">روند ارسال بار</h2>
@@ -286,7 +283,7 @@
       </article>
 
       <article
-        class="rounded-3xl border border-[#2A9D8F]/30 bg-white/70 p-6 shadow-xl shadow-black/5 backdrop-blur-xl"
+        class="rounded-3xl border border-white/50 bg-white/55 p-6 shadow-lg shadow-[#2A9D8F]/5 ring-1 ring-black/5 backdrop-blur-2xl"
       >
         <header class="mb-4 flex items-center justify-between">
           <h2 class="text-sm font-medium text-[#6B6B6B]">بارگیری هاب‌ها</h2>
