@@ -1,0 +1,62 @@
+<section class="space-y-8">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-semibold text-[#0B0B0B]">داشبورد راننده</h1>
+      <p class="mt-1 text-sm text-[#6B6B6B]">مشاهده سفرها و بارهای در انتظار حمل</p>
+    </div>
+    <a
+      routerLink="/dashboard"
+      class="rounded-full border border-[#E5E5E5] bg-white/70 px-4 py-2 text-sm font-medium text-[#0B0B0B] transition hover:bg-white/90"
+    >
+      بازگشت به داشبورد اصلی
+    </a>
+  </div>
+
+  @if (authService.isLoggedIn() && authService.hasRole('DRIVER')) {
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <article class="panel-shell">
+        <header class="panel-shell__header">
+          <h2 class="panel-shell__title">بازارچه / لیست بارهای موجود</h2>
+          <span class="panel-shell__badge">بازارچه</span>
+        </header>
+        <div class="panel-shell__body">
+          <p class="text-sm text-[#6B6B6B]">لیست بارهای موجود و پیشنهادهای حمل در این بخش قرار می‌گیرد.</p>
+        </div>
+      </article>
+
+      <article class="panel-shell">
+        <header class="panel-shell__header">
+          <h2 class="panel-shell__title">سفر فعال و نقشه</h2>
+          <span class="panel-shell__badge">سفر</span>
+        </header>
+        <div class="panel-shell__body">
+          <p class="text-sm text-[#6B6B6B]">سفر فعال شما به‌همراه نقشه مسیر در این بخش نمایش داده می‌شود.</p>
+        </div>
+      </article>
+
+      <article class="panel-shell">
+        <header class="panel-shell__header">
+          <h2 class="panel-shell__title">وضعیت آماده‌به‌کار</h2>
+          <span class="panel-shell__badge">وضعیت</span>
+        </header>
+        <div class="panel-shell__body">
+          <p class="text-sm text-[#6B6B6B]">تنظیم و نمایش وضعیت آماده‌به‌کار بودن شما در این بخش قرار می‌گیرد.</p>
+        </div>
+      </article>
+
+      <article class="panel-shell">
+        <header class="panel-shell__header">
+          <h2 class="panel-shell__title">کیف پول و درآمدها</h2>
+          <span class="panel-shell__badge">درآمد</span>
+        </header>
+        <div class="panel-shell__body">
+          <p class="text-sm text-[#6B6B6B]">موجودی کیف پول و گزارش درآمدهای شما در این بخش نمایش داده می‌شود.</p>
+        </div>
+      </article>
+    </div>
+  } @else {
+    <article class="panel-shell panel-shell--empty">
+      <p class="text-sm text-[#6B6B6B]">برای مشاهده پنل‌های راننده ابتدا وارد حساب کاربری شوید.</p>
+    </article>
+  }
+</section>
