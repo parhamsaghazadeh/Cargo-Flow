@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, UserProfile } from '../auth/auth.service';
 import { JalaliDatePicker } from '../shared/jalali-date-picker/jalali-date-picker';
@@ -41,17 +41,21 @@ export class Profile implements OnInit {
   protected readonly isDriver = signal(false);
   protected readonly memberStats = signal<MemberMetric[]>([]);
   protected readonly memberSince = signal('—');
+  protected readonly showDeleteModal = signal(false);
+  protected readonly deleteError = signal<string | null>(null);
+  protected readonly deleting = signal(false);
+  protected readonly deletePasswordControl = new FormControl('', Validators.required);
 
   protected readonly customerStats: StatMetric[] = [
-    { label: 'تعداد کل سفارشات', value: '۱۲۸', sublabel: 'سفارش فعال در این ماه', pct: 72, accent: 'from-sky-400 to-indigo-400' },
-    { label: 'نرخ استفاده / فعالیت', value: '۸۴٪', sublabel: 'میانگین استفاده هفتگی اپ', pct: 84, accent: 'from-emerald-400 to-teal-400' },
-    { label: 'برترین مقاصد ارسال', value: 'تهران، اصفهان، مشهد', sublabel: '۳ مقصد پرتکرار', pct: 68, accent: 'from-amber-400 to-orange-400' },
+    { label: 'تعداد کل سفارشات', value: '۱۲۸', sublabel: 'سفارش فعال در این ماه', pct: 72, accent: 'from-[#2A9D8F] to-[#2A9D8F]/70' },
+    { label: 'نرخ استفاده / فعالیت', value: '۸۴٪', sublabel: 'میانگین استفاده هفتگی اپ', pct: 84, accent: 'from-[#2A9D8F] to-[#2A9D8F]/60' },
+    { label: 'برترین مقاصد ارسال', value: 'تهران، اصفهان، مشهد', sublabel: '۳ مقصد پرتکرار', pct: 68, accent: 'from-[#2A9D8F] to-[#2A9D8F]/50' },
   ];
 
   protected readonly driverStats: StatMetric[] = [
-    { label: 'تعداد کل سفارشات تحویل‌شده', value: '۱٬۰۴۲', sublabel: 'تحویل موفق این ماه', pct: 78, accent: 'from-sky-400 to-indigo-400' },
-    { label: 'ساعات رانندگی در جاده', value: '۳۲۶ ساعت', sublabel: 'در ۳۰ روز گذشته', pct: 64, accent: 'from-emerald-400 to-teal-400' },
-    { label: 'تعداد مکان‌های تحویل', value: '۵۸۶', sublabel: 'مقصدهای منحصربه‌فرد', pct: 71, accent: 'from-amber-400 to-orange-400' },
+    { label: 'تعداد کل سفارشات تحویل‌شده', value: '۱٬۰۴۲', sublabel: 'تحویل موفق این ماه', pct: 78, accent: 'from-[#2A9D8F] to-[#2A9D8F]/70' },
+    { label: 'ساعات رانندگی در جاده', value: '۳۲۶ ساعت', sublabel: 'در ۳۰ روز گذشته', pct: 64, accent: 'from-[#2A9D8F] to-[#2A9D8F]/60' },
+    { label: 'تعداد مکان‌های تحویل', value: '۵۸۶', sublabel: 'مقصدهای منحصربه‌فرد', pct: 71, accent: 'from-[#2A9D8F] to-[#2A9D8F]/50' },
   ];
 
   protected readonly form = this.fb.nonNullable.group({
@@ -228,5 +232,53 @@ export class Profile implements OnInit {
     void this.authService.logout().finally(() => {
       this.router.navigate(['/login']);
     });
+  }
+
+  openDeleteModal(): void {
+    this.deletePasswordControl.setValue('');
+    this.deleteError.set(null);
+    this.showDeleteModal.set(true);
+  }
+
+  closeDeleteModal(): void {
+    if (this.deleting()) {
+      return;
+    }
+    this.showDeleteModal.set(false);
+    this.deletePasswordControl.setValue('');
+    this.deleteError.set(null);
+  }
+
+  async onDeleteAccount(): Promise<void> {
+    const password = this.deletePasswordControl.value ?? '';
+    if (!password || this.deleting()) {
+      return;
+    }
+    this.deleting.set(true);
+    this.deleteError.set(null);
+    try {
+      await this.authService.deleteAccount(password);
+      this.showDeleteModal.set(false);
+      this.authService.clearAuth();
+      await this.router.navigate(['/login']);
+    } catch (error: unknown) {
+      this.deleteError.set(this.extractDeleteError(error));
+    } finally {
+      this.deleting.set(false);
+    }
+  }
+
+  private extractDeleteError(error: unknown): string {
+    const e = error as { status?: number; error?: { message?: string } };
+    if (e?.status === 401 || e?.status === 400) {
+      return 'رمز عبور فعلی صحیح نیست. لطفاً دوباره تلاش کنید.';
+    }
+    if (typeof e?.error?.message === 'string' && e.error.message.length > 0) {
+      return e.error.message;
+    }
+    if (error instanceof Error && /failed to fetch/i.test(error.message)) {
+      return 'اتصال به سرور برقرار نشد. لطفاً دوباره تلاش کنید.';
+    }
+    return 'حذف حساب انجام نشد. لطفاً دوباره تلاش کنید.';
   }
 }
