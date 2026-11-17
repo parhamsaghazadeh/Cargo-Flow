@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+.panel-shell {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(42, 157, 143, 0.3);
+  background: rgba(255, 255, 255, 0.75);
+  padding: 1.5rem;
+  box-shadow: 0 25px 25px -5px rgba(13, 66, 59, 0.08), 0 10px 10px -5px rgba(13, 66, 59, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.panel-shell--empty {
+  grid-column: 1 / -1;
+}
+
+.panel-shell__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel-shell__title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b6b6b;
+}
+
+.panel-shell__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  background: rgba(42, 157, 143, 0.12);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #2a9d8f;
+}
+
+.panel-shell__body {
+  min-height: 6rem;
+}
