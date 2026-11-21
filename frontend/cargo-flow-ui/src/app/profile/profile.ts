@@ -47,15 +47,15 @@ export class Profile implements OnInit {
   protected readonly deletePasswordControl = new FormControl('', Validators.required);
 
   protected readonly customerStats: StatMetric[] = [
-    { label: 'تعداد کل سفارشات', value: '۱۲۸', sublabel: 'سفارش فعال در این ماه', pct: 72, accent: 'from-[#2A9D8F] to-[#2A9D8F]/70' },
-    { label: 'نرخ استفاده / فعالیت', value: '۸۴٪', sublabel: 'میانگین استفاده هفتگی اپ', pct: 84, accent: 'from-[#2A9D8F] to-[#2A9D8F]/60' },
-    { label: 'برترین مقاصد ارسال', value: 'تهران، اصفهان، مشهد', sublabel: '۳ مقصد پرتکرار', pct: 68, accent: 'from-[#2A9D8F] to-[#2A9D8F]/50' },
+    { label: 'تعداد کل سفارشات', value: '۱۲۸', sublabel: 'سفارش فعال در این ماه', pct: 72, accent: 'from-[#0B0B0B] to-[#0B0B0B]/70' },
+    { label: 'نرخ استفاده / فعالیت', value: '۸۴٪', sublabel: 'میانگین استفاده هفتگی اپ', pct: 84, accent: 'from-[#0B0B0B] to-[#0B0B0B]/60' },
+    { label: 'برترین مقاصد ارسال', value: 'تهران، اصفهان، مشهد', sublabel: '۳ مقصد پرتکرار', pct: 68, accent: 'from-[#0B0B0B] to-[#0B0B0B]/50' },
   ];
 
   protected readonly driverStats: StatMetric[] = [
-    { label: 'تعداد کل سفارشات تحویل‌شده', value: '۱٬۰۴۲', sublabel: 'تحویل موفق این ماه', pct: 78, accent: 'from-[#2A9D8F] to-[#2A9D8F]/70' },
-    { label: 'ساعات رانندگی در جاده', value: '۳۲۶ ساعت', sublabel: 'در ۳۰ روز گذشته', pct: 64, accent: 'from-[#2A9D8F] to-[#2A9D8F]/60' },
-    { label: 'تعداد مکان‌های تحویل', value: '۵۸۶', sublabel: 'مقصدهای منحصربه‌فرد', pct: 71, accent: 'from-[#2A9D8F] to-[#2A9D8F]/50' },
+    { label: 'تعداد کل سفارشات تحویل‌شده', value: '۱٬۰۴۲', sublabel: 'تحویل موفق این ماه', pct: 78, accent: 'from-[#0B0B0B] to-[#0B0B0B]/70' },
+    { label: 'ساعات رانندگی در جاده', value: '۳۲۶ ساعت', sublabel: 'در ۳۰ روز گذشته', pct: 64, accent: 'from-[#0B0B0B] to-[#0B0B0B]/60' },
+    { label: 'تعداد مکان‌های تحویل', value: '۵۸۶', sublabel: 'مقصدهای منحصربه‌فرد', pct: 71, accent: 'from-[#0B0B0B] to-[#0B0B0B]/50' },
   ];
 
   protected readonly form = this.fb.nonNullable.group({
