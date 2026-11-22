@@ -22,7 +22,12 @@ export class Login implements OnDestroy {
     }
   }
 
-  protected readonly mode = signal<'login' | 'signup'>('login');
+  protected readonly mode = signal<'login' | 'signup'>(
+    this.route.snapshot.queryParamMap.get('role') === 'DRIVER' ||
+      this.route.snapshot.queryParamMap.get('role') === 'CUSTOMER'
+      ? 'signup'
+      : 'login',
+  );
   protected readonly showPassword = signal(false);
   protected readonly showConfirmPassword = signal(false);
   protected readonly submitting = signal(false);
