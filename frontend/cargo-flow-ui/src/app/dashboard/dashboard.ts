@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +11,14 @@ import { Router } from '@angular/router';
 export class Dashboard implements OnInit, OnDestroy {
   constructor(private readonly router: Router) {}
 
+  protected readonly authService = inject(AuthService);
+
   protected openGateway(): void {
-    void this.router.navigate(['/business']);
+    if (!this.authService.isLoggedIn()) {
+      void this.router.navigate(['/business']);
+      return;
+    }
+    void this.router.navigate([this.authService.getHomeRoute()]);
   }
 
   protected readonly bars = [32, 48, 40, 62, 52, 74, 66, 84, 70, 92, 78, 88];

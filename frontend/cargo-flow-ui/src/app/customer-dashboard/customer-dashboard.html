@@ -14,7 +14,12 @@
 
   @if (authService.isLoggedIn() && authService.hasRole('CUSTOMER')) {
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        routerLink="/customer/new-order"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">ثبت سفارش جدید</h2>
           <span class="panel-shell__badge">سفارش</span>
@@ -24,7 +29,12 @@
         </div>
       </article>
 
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        routerLink="/customer/order-tracking"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">مدیریت و پیگیری سفارش‌ها</h2>
           <span class="panel-shell__badge">پیگیری</span>
@@ -34,7 +44,12 @@
         </div>
       </article>
 
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        routerLink="/customer/addresses"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">مدیریت آدرس‌های پرکاربرد</h2>
           <span class="panel-shell__badge">آدرس</span>
@@ -44,7 +59,12 @@
         </div>
       </article>
 
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        routerLink="/customer/billing"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">صورت‌حساب و پرداخت‌ها</h2>
           <span class="panel-shell__badge">پرداخت</span>
