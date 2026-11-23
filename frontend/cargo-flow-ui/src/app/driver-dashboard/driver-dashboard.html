@@ -1,12 +1,12 @@
 <section class="space-y-8">
-  <div class="flex flex-wrap items-end justify-between gap-4">
+  <div class="animate-fade-in-up flex flex-wrap items-end justify-between gap-4" style="animation-delay: 0ms">
     <div>
-      <h1 class="text-2xl font-semibold text-[#0B0B0B]">داشبورد راننده</h1>
-      <p class="mt-1 text-sm text-[#6B6B6B]">مشاهده سفرها و بارهای در انتظار حمل</p>
+      <h1 class="text-2xl font-semibold text-white">داشبورد راننده</h1>
+      <p class="mt-1 text-sm text-slate-300">مشاهده سفرها و بارهای در انتظار حمل</p>
     </div>
     <a
       routerLink="/dashboard"
-      class="rounded-full border border-[#E5E5E5] bg-white/70 px-4 py-2 text-sm font-medium text-[#0B0B0B] transition hover:bg-white/90"
+      class="rounded-full border border-slate-700/70 bg-slate-900/70 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-slate-800"
     >
       بازگشت به داشبورد اصلی
     </a>
@@ -14,49 +14,69 @@
 
   @if (authService.isLoggedIn() && authService.hasRole('DRIVER')) {
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 100ms"
+        routerLink="/driver/marketplace"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">بازارچه / لیست بارهای موجود</h2>
           <span class="panel-shell__badge">بازارچه</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">لیست بارهای موجود و پیشنهادهای حمل در این بخش قرار می‌گیرد.</p>
+          <p class="text-sm text-slate-400">لیست بارهای موجود و پیشنهادهای حمل در این بخش قرار می‌گیرد.</p>
         </div>
       </article>
 
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 200ms"
+        routerLink="/driver/active-trip"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">سفر فعال و نقشه</h2>
           <span class="panel-shell__badge">سفر</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">سفر فعال شما به‌همراه نقشه مسیر در این بخش نمایش داده می‌شود.</p>
+          <p class="text-sm text-slate-400">سفر فعال شما به‌همراه نقشه مسیر در این بخش نمایش داده می‌شود.</p>
         </div>
       </article>
 
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 300ms"
+        routerLink="/driver/ready-status"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">وضعیت آماده‌به‌کار</h2>
           <span class="panel-shell__badge">وضعیت</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">تنظیم و نمایش وضعیت آماده‌به‌کار بودن شما در این بخش قرار می‌گیرد.</p>
+          <p class="text-sm text-slate-400">تنظیم و نمایش وضعیت آماده‌به‌کار بودن شما در این بخش قرار می‌گیرد.</p>
         </div>
       </article>
 
-      <article class="panel-shell">
+      <article
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 400ms"
+        routerLink="/driver/wallet"
+        role="link"
+        tabindex="0"
+      >
         <header class="panel-shell__header">
           <h2 class="panel-shell__title">کیف پول و درآمدها</h2>
           <span class="panel-shell__badge">درآمد</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">موجودی کیف پول و گزارش درآمدهای شما در این بخش نمایش داده می‌شود.</p>
+          <p class="text-sm text-slate-400">موجودی کیف پول و گزارش درآمدهای شما در این بخش نمایش داده می‌شود.</p>
         </div>
       </article>
     </div>
   } @else {
     <article class="panel-shell panel-shell--empty">
-      <p class="text-sm text-[#6B6B6B]">برای مشاهده پنل‌های راننده ابتدا وارد حساب کاربری شوید.</p>
+      <p class="text-sm text-slate-400">برای مشاهده پنل‌های راننده ابتدا وارد حساب کاربری شوید.</p>
     </article>
   }
 </section>
