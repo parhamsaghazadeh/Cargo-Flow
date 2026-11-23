@@ -1,12 +1,12 @@
 <section class="space-y-8">
-  <div class="flex flex-wrap items-end justify-between gap-4">
+  <div class="animate-fade-in-up flex flex-wrap items-end justify-between gap-4" style="animation-delay: 0ms">
     <div>
-      <h1 class="text-2xl font-semibold text-[#0B0B0B]">داشبورد مشتری</h1>
-      <p class="mt-1 text-sm text-[#6B6B6B]">مدیریت سفارشات حمل بار شما</p>
+      <h1 class="text-2xl font-semibold text-white">داشبورد مشتری</h1>
+      <p class="mt-1 text-sm text-slate-300">مدیریت سفارشات حمل بار شما</p>
     </div>
     <a
       routerLink="/dashboard"
-      class="rounded-full border border-[#E5E5E5] bg-white/70 px-4 py-2 text-sm font-medium text-[#0B0B0B] transition hover:bg-white/90"
+      class="rounded-full border border-slate-700/70 bg-slate-900/70 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-slate-800"
     >
       بازگشت به داشبورد اصلی
     </a>
@@ -15,7 +15,7 @@
   @if (authService.isLoggedIn() && authService.hasRole('CUSTOMER')) {
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <article
-        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 100ms"
         routerLink="/customer/new-order"
         role="link"
         tabindex="0"
@@ -25,12 +25,12 @@
           <span class="panel-shell__badge">سفارش</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">ابزار ثبت سفارش جدید در این بخش قرار می‌گیرد.</p>
+          <p class="text-sm text-slate-400">ابزار ثبت سفارش جدید در این بخش قرار می‌گیرد.</p>
         </div>
       </article>
 
       <article
-        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 200ms"
         routerLink="/customer/order-tracking"
         role="link"
         tabindex="0"
@@ -40,12 +40,12 @@
           <span class="panel-shell__badge">پیگیری</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">وضعیت و پیگیری سفارش‌های فعال در این بخش نمایش داده می‌شود.</p>
+          <p class="text-sm text-slate-400">وضعیت و پیگیری سفارش‌های فعال در این بخش نمایش داده می‌شود.</p>
         </div>
       </article>
 
       <article
-        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 300ms"
         routerLink="/customer/addresses"
         role="link"
         tabindex="0"
@@ -55,12 +55,12 @@
           <span class="panel-shell__badge">آدرس</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">آدرس‌های ذخیره‌شده و پرکاربرد شما در این بخش قرار می‌گیرد.</p>
+          <p class="text-sm text-slate-400">آدرس‌های ذخیره‌شده و پرکاربرد شما در این بخش قرار می‌گیرد.</p>
         </div>
       </article>
 
       <article
-        class="panel-shell cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:bg-slate-200/60 hover:border-slate-300/80 hover:shadow-lg"
+        class="panel-shell cursor-pointer animate-fade-in-up transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:!bg-slate-200/80 hover:!border-slate-900/60 hover:!shadow-[0_20px_50px_rgba(0,0,0,0.25)]" style="animation-delay: 400ms"
         routerLink="/customer/billing"
         role="link"
         tabindex="0"
@@ -70,13 +70,13 @@
           <span class="panel-shell__badge">پرداخت</span>
         </header>
         <div class="panel-shell__body">
-          <p class="text-sm text-[#6B6B6B]">صورت‌حساب‌ها و وضعیت پرداخت‌های شما در این بخش نمایش داده می‌شود.</p>
+          <p class="text-sm text-slate-400">صورت‌حساب‌ها و وضعیت پرداخت‌های شما در این بخش نمایش داده می‌شود.</p>
         </div>
       </article>
     </div>
   } @else {
     <article class="panel-shell panel-shell--empty">
-      <p class="text-sm text-[#6B6B6B]">برای مشاهده پنل‌های مشتری ابتدا وارد حساب کاربری شوید.</p>
+      <p class="text-sm text-slate-400">برای مشاهده پنل‌های مشتری ابتدا وارد حساب کاربری شوید.</p>
     </article>
   }
 </section>
